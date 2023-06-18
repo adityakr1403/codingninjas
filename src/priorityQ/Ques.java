@@ -1,14 +1,38 @@
 package priorityQ;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.PriorityQueue;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Ques {
 
+    public static int buyTicket(int[] input, int k) {
+        PriorityQueue<Integer> max_pq = new PriorityQueue<>(Collections.reverseOrder());
+        for (int x : input){
+            max_pq.add(x);
+        }
+        Queue<Integer> q = new LinkedList<>();
+        for (int i = 0; i < input.length; i++) {
+            q.add(i);
+        }
 
+
+        int time = 0;
+
+        while(true ){
+            if (input[q.element()] == max_pq.element()){
+                int pos = q.remove();
+                max_pq.remove();
+                time++;
+                if (pos == k){
+                    break;
+                }
+            }
+            else {
+                q.add(q.remove());
+            }
+        }
+        return time;
+    }
 
     public static void findMedian(int[] arr) {
         PriorityQueue<Integer> minPQ = new PriorityQueue<>();
